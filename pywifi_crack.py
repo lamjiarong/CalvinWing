@@ -4,10 +4,26 @@ import pywifi
 import sys
 import time
 from pywifi import const
+# Define interface status.
+IFACE_DISCONNECTED = 0
+IFACE_SCANNING = 1
+IFACE_INACTIVE = 2
+IFACE_CONNECTING = 3
+IFACE_CONNECTED = 4
 
 wifi = pywifi.PyWiFi()  # 创建一个无线对象
 iface = wifi.interfaces()[0]  # 取第一个无限网卡
-
+# for k in dir(iface):
+    # print(k, getattr(iface, k))
+print(iface.name())
+iface.disconnect()
+iface.scan()
+# iface.remove_all_network_profiles()
+time.sleep(3)
+a = iface.scan_results()
+for i in a:
+    print(i, getattr(i, 'ssid'), getattr(i, 'freq'))
+    
 def test_conn(ssid, pwd):
     # iface.remove_all_network_profiles()
     iface.disconnect()
